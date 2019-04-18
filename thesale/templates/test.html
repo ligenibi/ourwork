@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% include 'try.html' %}
+       {% include 'try.html' %}
+       {% include 'try.html' %}
+       {% include 'try.html' %}
+
+    <h1>打印所有用户信息</h1>
+    {%  for k,v in userinfo.items %}
+        <h2>{{k}}-{{v}}</h2>
+    {% endfor %}
+{{ name|upper }}
+{%  if name == 'yxs' %}
+        {{ name|upper }}
+        {% else  %}
+        <h6>111</h6>
+    {% endif %}
+    <p>时间格式化：{{ now|date:"Y-m-d H:i:s"}}</p>
+</body>
+</html>
