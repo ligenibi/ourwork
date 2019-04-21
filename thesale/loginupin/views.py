@@ -40,5 +40,11 @@ def test(request):
 def blank(request):
     return render(request , "blank.html")
 
+def xxx(request):
+    return render(request, "try.html")
+
+def self(request):
+    return render(request, "self.html")
+
 
 
