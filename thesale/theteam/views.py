@@ -5,7 +5,7 @@ from theteam import models
 
 def listtemaer(request):
     listteam = models.team.objects.all()
-    return render(request, 'list.html',{
+    return render(request, 'list.html', {
         'listteam': listteam
     })
 
@@ -20,10 +20,20 @@ def publish(request):
         competition = request.POST.get("competition", None)
         teamer = request.POST.get("teamer", None)
         description = request.POST.get("description", None)
-        print(first, telephone, email, competition, teamer, description )
+        print(first, telephone, email, competition, teamer, description)
         models.team.objects.create(first=first, telephone=telephone, email=email, competition=competition, teamer=teamer, description=description)
-        return render(request, 'publish.html', {
-             'error': "不能有要求的字段为空!"
-            })
+        if first == '' or telephone == '' or competition == ''or teamer == '' or description == '':
+            return render(request, 'publish.html', {
+               'error': "不能有要求的字段为空!"
+             })
+        else:
+            return redirect('/theteam/')
+
+
+def articles(request, num):
+    article = models.team.objects.filter(id=num)[0]
+    return render(request, 'articles.html', {
+        'article': article
+    })
 
 

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from django.shortcuts import HttpResponse, render, redirect
 from loginupin import models
 from datetime import datetime
@@ -11,7 +12,7 @@ def loginin(request):
         password = request.POST.get("password")
         result = models.users.objects.filter(user_email=email,user_password=password)
         if result:
-            return redirect('/signup/')
+            return redirect('/loginupin/signup/')
         else:
             return render(request, 'loginin.html')
 def signup(request):
@@ -31,8 +32,8 @@ def signup(request):
 def test(request):
      now = datetime.now()
      print(now)
-     return render(request, 'test.html',{
-        'userinfo':{'k1':'v1','k2':'v2'}
+     return render(request, 'test.html', {
+        'userinfo':{'k1': 'v1','k2': 'v2'}
          ,'name':'xxx',
           'now': now
     })
@@ -45,6 +46,39 @@ def xxx(request):
 
 def self(request):
     return render(request, "self.html")
+
+
+def uploadImg(request):
+    """
+    图片上传
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        print(request.FILES.get('img').name)
+        new_img = models.IMG(
+            img=request.FILES.get('img'),
+            name=request.FILES.get('img').name
+        )
+        new_img.save()
+    return redirect('/loginupin/show/')
+
+
+def showImg(request):
+    """
+    图片显示
+    :param request:
+    :return:
+    """
+    imgs = models.IMG.objects.all()
+    content = {
+        'imgs': imgs,
+    }
+    for i in imgs:
+        print(i.img.url)
+    return render(request, 'show.html', content)
+
+
 
 
 
