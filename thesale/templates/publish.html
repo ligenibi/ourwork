@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/theteam/publish/" method="post">
+    <input type="text" name="first" placeholder="发起人名字" maxlength="10">
+    <input type="text"  name="telephone" placeholder="发起人电话" maxlength="10">
+    <input type="text" name="email" placeholder="邮箱 可选填">
+    <input type="text" name="competition" placeholder="比赛名称" maxlength="10">
+    <input type="text" name="teamer" placeholder="现有队员人数" maxlength="10">
+    <input type="text" name="description" placeholder="描述" maxlength="100">
+    <input type="submit" value="提交">
+    {% csrf_token %}
+</form>
+<p>{{ error }}</p>
+</body>
+</html>

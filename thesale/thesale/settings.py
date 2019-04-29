@@ -40,13 +40,24 @@ INSTALLED_APPS = [
     'loginupin.apps.LoginupinConfig',
     'xadmin',
     'crispy_forms',
+    'haystack',
+    'theteam'
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'loginupin.whoosh_cn_backends.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -126,7 +137,9 @@ STATIC_URL = '/static/'
 #所有静态文件（css/js/图片）都放在我下面配置的文件夹中
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "loginupin/static"),
+    os.path.join(BASE_DIR, 'media')
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')     #设置静态文件路径为主目录下的media文件夹
-MEDIA_URL = '/media/'                                                 #url映射
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')    #设置静态文件路径为主目录下的media文件夹
+MEDIA_URL = '/media/'                                                  #url映射

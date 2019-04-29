@@ -14,17 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf.urls import url
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from loginupin import views as loginupin_views
+from theteam import views as theteam_views
 import xadmin
+import haystack
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('', loginupin_views.loginin),
-    path('signup/', loginupin_views.signup),
-    path('test/', loginupin_views.test),
-    path('blank/', loginupin_views.blank),
+    path('loginupin/', include('loginupin.urls', namespace='loginupin')),
+    url(r'^search/', include('haystack.urls')),
+    path('thingfloat/',include('thingfloat.urls')),
+    path('taskwork/', include('taskout.urls')),
+    path('theteam/', include('theteam.urls', namespace='theteam')) # 引入blog应用的url配置
 ]
